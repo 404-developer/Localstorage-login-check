@@ -1,0 +1,40 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+
+  @ViewChild('loginform', { read: NgForm, static:true }) loginform: any;
+  olduser:any
+  display:any
+
+  constructor( private router:Router) { }
+
+  ngOnInit(): void {
+    this.olduser = JSON.parse(localStorage.getItem('form') || '[]');
+   
+   }
+  saveForm(event:any)
+  {
+   
+   this.olduser.forEach( (value:any) => {
+    if(this.loginform.value.name==value.name && this.loginform.value.email==value.email)
+
+    {
+      console.log("sucess");
+      this.router.navigate([`/dashboard`])
+    }
+    else{
+      console.log("fail");
+      
+    }
+   }); 
+}
+  
+
+}
